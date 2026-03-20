@@ -120,7 +120,7 @@ class StateMachineRunnerService
         $repositoryClass = ClassResolver::repository($stateableClass);
         $repository = app()->make($repositoryClass);
 
-        $repositoryContract = (string) config('threadstate.repositories.contract', StateableRepository::class);
+        $repositoryContract = (string) config('state_machine.repositories.contract', StateableRepository::class);
 
         if (! is_a($repository, $repositoryContract)) {
             throw new InvalidRepositoryException($repositoryClass, $repositoryContract);

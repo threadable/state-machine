@@ -51,7 +51,7 @@ class StateMachineFlowTest extends TestCase
 
         $order = Order::query()->create(['name' => 'Endpoint']);
 
-        $response = $this->postJson(route('threadstate.transitions.transit', [
+        $response = $this->postJson(route('state-machine.transitions.transit', [
             'stateableClass' => 'Order',
             'uuid' => (string) $order->id,
             'transitionIdentifier' => 'approve',
@@ -74,7 +74,7 @@ class StateMachineFlowTest extends TestCase
 
         $order = Order::query()->create(['name' => 'Unavailable']);
 
-        $response = $this->postJson(route('threadstate.transitions.transit', [
+        $response = $this->postJson(route('state-machine.transitions.transit', [
             'stateableClass' => 'Order',
             'uuid' => (string) $order->id,
             'transitionIdentifier' => 'approve',
@@ -121,7 +121,7 @@ class StateMachineFlowTest extends TestCase
 
         $order = Order::query()->create(['name' => 'Needs validation']);
 
-        $response = $this->postJson(route('threadstate.transitions.transit', [
+        $response = $this->postJson(route('state-machine.transitions.transit', [
             'stateableClass' => 'Order',
             'uuid' => (string) $order->id,
             'transitionIdentifier' => 'approve',

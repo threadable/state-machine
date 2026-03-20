@@ -19,7 +19,7 @@ return [
 
     'routes' => [
         'enabled' => true,
-        'prefix' => 'threadstate',
+        'prefix' => 'state-machine',
         'middleware' => ['api'],
     ],
 

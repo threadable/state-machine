@@ -10,11 +10,6 @@ use Illuminate\Support\Str;
 
 class MakeSpecification extends Command
 {
-    protected $aliases = [
-        'threadstate:spec',
-        'threadable:statemachine:make:specification',
-    ];
-
     /**
      * The name and signature of the console command.
      *
@@ -27,7 +22,7 @@ class MakeSpecification extends Command
      *
      * @var string
      */
-    protected $description = 'Threadable\'s State Machine Specification File Generator';
+    protected $description = 'Create a state machine specification.';
 
     public function handle(): int
     {

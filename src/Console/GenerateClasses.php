@@ -12,11 +12,6 @@ use Throwable;
 
 class GenerateClasses extends Command
 {
-    protected $aliases = [
-        'threadstate:generate',
-        'threadable:statemachine:generate:classes',
-    ];
-
     /**
      * The name and signature of the console command.
      *
@@ -29,7 +24,7 @@ class GenerateClasses extends Command
      *
      * @var string
      */
-    protected $description = 'Threadable\'s State Machine Classes Generator';
+    protected $description = 'Generate state machine scaffolding from a specification.';
 
     public function handle(): int
     {
@@ -88,10 +83,10 @@ class GenerateClasses extends Command
         File::put($outputFolder.'/.gitignore', "/*\n");
 
         $outputApp = $outputFolder.'/app';
-        $outputModels = $this->namespacePath($outputApp, (string) config('threadstate.namespaces.models', 'App\\Models\\'));
-        $outputActions = $this->namespacePath($outputApp, (string) config('threadstate.namespaces.actions', 'App\\Actions\\'));
-        $outputConditions = $this->namespacePath($outputApp, (string) config('threadstate.namespaces.conditions', 'App\\Conditions\\'));
-        $outputObservers = $this->namespacePath($outputApp, (string) config('threadstate.namespaces.observers', 'App\\Observers\\'));
+        $outputModels = $this->namespacePath($outputApp, (string) config('state_machine.namespaces.models', 'App\\Models\\'));
+        $outputActions = $this->namespacePath($outputApp, (string) config('state_machine.namespaces.actions', 'App\\Actions\\'));
+        $outputConditions = $this->namespacePath($outputApp, (string) config('state_machine.namespaces.conditions', 'App\\Conditions\\'));
+        $outputObservers = $this->namespacePath($outputApp, (string) config('state_machine.namespaces.observers', 'App\\Observers\\'));
         $outputDatabase = $outputFolder.'/database';
         $outputMigrations = $outputDatabase.'/migrations';
         $outputSeeders = $outputDatabase.'/seeders';
@@ -120,7 +115,7 @@ class GenerateClasses extends Command
             $destinationModel,
             [
                 '__STATEABLE_CLASS__' => $stateable_class,
-                '__MODEL_NAMESPACE__' => $this->trimNamespace((string) config('threadstate.namespaces.models', 'App\\Models\\')),
+                '__MODEL_NAMESPACE__' => $this->trimNamespace((string) config('state_machine.namespaces.models', 'App\\Models\\')),
             ]
         );
 
@@ -130,7 +125,7 @@ class GenerateClasses extends Command
             $destinationObserver,
             [
                 '__STATEABLE_CLASS__' => $stateable_class.'Observer',
-                '__OBSERVER_NAMESPACE__' => $this->trimNamespace((string) config('threadstate.namespaces.observers', 'App\\Observers\\')),
+                '__OBSERVER_NAMESPACE__' => $this->trimNamespace((string) config('state_machine.namespaces.observers', 'App\\Observers\\')),
             ]
         );
 
@@ -141,7 +136,7 @@ class GenerateClasses extends Command
                 $destinationCondition,
                 [
                     '__CONDITION_NAME__' => $conditionRef,
-                    '__CONDITION_NAMESPACE__' => $this->trimNamespace((string) config('threadstate.namespaces.conditions', 'App\\Conditions\\')),
+                    '__CONDITION_NAMESPACE__' => $this->trimNamespace((string) config('state_machine.namespaces.conditions', 'App\\Conditions\\')),
                 ]
             );
         }
@@ -153,7 +148,7 @@ class GenerateClasses extends Command
                 $destinationAction,
                 [
                     '__ACTION_NAME__' => $actionRef,
-                    '__ACTION_NAMESPACE__' => $this->trimNamespace((string) config('threadstate.namespaces.actions', 'App\\Actions\\')),
+                    '__ACTION_NAMESPACE__' => $this->trimNamespace((string) config('state_machine.namespaces.actions', 'App\\Actions\\')),
                 ]
             );
         }

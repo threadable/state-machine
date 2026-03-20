@@ -8,11 +8,6 @@ use Illuminate\Console\Command;
 
 class Install extends Command
 {
-    protected $aliases = [
-        'threadstate:install',
-        'threadable:statemachine:install',
-    ];
-
     /**
      * The name and signature of the console command.
      *
@@ -25,15 +20,15 @@ class Install extends Command
      *
      * @var string
      */
-    protected $description = 'Threadable\'s State Machine Installer (Log Table)';
+    protected $description = 'Install State Machine package migrations.';
 
     public function handle(): int
     {
         $this->info('Publishing package migrations');
 
         $this->call('vendor:publish', [
-            '--provider' => 'Threadable\\StateMachine\\Providers\\ThreadstateServiceProvider',
-            '--tag' => 'threadstate-migrations',
+            '--provider' => 'Threadable\\StateMachine\\Providers\\StateMachineServiceProvider',
+            '--tag' => 'state-machine-migrations',
         ]);
 
         if ($this->option('publish-only')) {

@@ -10,24 +10,24 @@ class ClassResolver
 {
     public static function model(string $class): string
     {
-        return self::resolveConfiguredClass('threadstate.namespaces.models', $class);
+        return self::resolveConfiguredClass('state_machine.namespaces.models', $class);
     }
 
     public static function action(string $class): string
     {
-        return self::resolveConfiguredClass('threadstate.namespaces.actions', $class);
+        return self::resolveConfiguredClass('state_machine.namespaces.actions', $class);
     }
 
     public static function condition(string $class): string
     {
-        return self::resolveConfiguredClass('threadstate.namespaces.conditions', $class);
+        return self::resolveConfiguredClass('state_machine.namespaces.conditions', $class);
     }
 
     public static function repository(string $class): string
     {
-        $suffix = (string) config('threadstate.repositories.suffix', 'Repository');
+        $suffix = (string) config('state_machine.repositories.suffix', 'Repository');
 
-        return self::resolveConfiguredClass('threadstate.namespaces.repositories', $class, $suffix);
+        return self::resolveConfiguredClass('state_machine.namespaces.repositories', $class, $suffix);
     }
 
     protected static function resolveConfiguredClass(string $configKey, string $class, string $suffix = ''): string

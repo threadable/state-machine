@@ -41,7 +41,7 @@ class StateMachineQueryEndpointsTest extends TestCase
             'tsm_transition_configs_id' => $config->id,
         ]);
 
-        $response = $this->getJson('/threadstate/Order');
+        $response = $this->getJson('/state-machine/Order');
 
         $response->assertOk();
         $response->assertJsonFragment(['name' => 'Pending']);
@@ -71,7 +71,7 @@ class StateMachineQueryEndpointsTest extends TestCase
             'final' => 1,
         ]);
 
-        $response = $this->getJson('/threadstate/Order/states');
+        $response = $this->getJson('/state-machine/Order/states');
 
         $response->assertOk()->assertExactJson(['pending']);
         $this->assertSame('Pending', $pending->name);
@@ -107,7 +107,7 @@ class StateMachineQueryEndpointsTest extends TestCase
 
         $order = Order::query()->create(['name' => 'Endpoint']);
 
-        $response = $this->getJson("/threadstate/Order/{$order->id}/transitions");
+        $response = $this->getJson("/state-machine/Order/{$order->id}/transitions");
 
         $response->assertOk()->assertExactJson([
             'approve' => 'Approve',
@@ -145,7 +145,7 @@ class StateMachineQueryEndpointsTest extends TestCase
         $order = Order::query()->create(['name' => 'Logs']);
         $order->transit('Approve');
 
-        $response = $this->getJson("/threadstate/Order/{$order->id}/logs");
+        $response = $this->getJson("/state-machine/Order/{$order->id}/logs");
 
         $response->assertOk();
         $response->assertJsonFragment(['transition' => 'Approve']);
@@ -192,7 +192,7 @@ class StateMachineQueryEndpointsTest extends TestCase
             'scope_id' => 42,
         ]);
 
-        $response = $this->getJson(route('threadstate.transitions.overrides.index', [
+        $response = $this->getJson(route('state-machine.transitions.overrides.index', [
             'stateableClass' => 'Order',
             'transitionId' => (string) $transition->id,
         ]));
@@ -249,7 +249,7 @@ class StateMachineQueryEndpointsTest extends TestCase
             'scope_id' => 42,
         ]);
 
-        $response = $this->getJson(route('threadstate.transitions.config', [
+        $response = $this->getJson(route('state-machine.transitions.config', [
             'stateableClass' => 'Order',
             'uuid' => (string) $order->id,
             'transitionId' => (string) $transition->id,
@@ -267,9 +267,9 @@ class StateMachineQueryEndpointsTest extends TestCase
 
     public function test_it_applies_authorization_callbacks_to_package_routes(): void
     {
-        config()->set('threadstate.authorization.view_state_machine', static fn ($user, $request, array $context): bool => false);
+        config()->set('state_machine.authorization.view_state_machine', static fn ($user, $request, array $context): bool => false);
 
-        $response = $this->getJson('/threadstate/Order');
+        $response = $this->getJson('/state-machine/Order');
 
         $response->assertStatus(403);
     }
@@ -302,7 +302,7 @@ class StateMachineQueryEndpointsTest extends TestCase
             'tsm_transition_configs_id' => $defaultConfig->id,
         ]);
 
-        $storeResponse = $this->postJson(route('threadstate.transitions.overrides.store', [
+        $storeResponse = $this->postJson(route('state-machine.transitions.overrides.store', [
             'stateableClass' => 'Order',
             'transitionId' => (string) $transition->id,
             'scopeType' => 'organization',
@@ -318,7 +318,7 @@ class StateMachineQueryEndpointsTest extends TestCase
             'is_default' => false,
         ]);
 
-        $deleteResponse = $this->deleteJson(route('threadstate.transitions.overrides.delete', [
+        $deleteResponse = $this->deleteJson(route('state-machine.transitions.overrides.delete', [
             'stateableClass' => 'Order',
             'transitionId' => (string) $transition->id,
             'scopeType' => 'organization',

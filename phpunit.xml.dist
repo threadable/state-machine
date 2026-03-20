@@ -5,7 +5,7 @@
          colors="true"
          cacheDirectory=".phpunit.cache">
     <testsuites>
-        <testsuite name="threadstate">
+        <testsuite name="state-machine">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

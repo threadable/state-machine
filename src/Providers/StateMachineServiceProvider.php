@@ -14,11 +14,11 @@ use Threadable\StateMachine\Events\TransitionActionEvent;
 use Threadable\StateMachine\Listeners\ActionListener;
 use Threadable\StateMachine\Listeners\TransitionLogger;
 
-class ThreadstateServiceProvider extends ServiceProvider
+class StateMachineServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(dirname(__DIR__, 2).'/config/threadstate.php', 'threadstate');
+        $this->mergeConfigFrom(dirname(__DIR__, 2).'/config/state_machine.php', 'state_machine');
     }
 
     public function boot(): void
@@ -39,11 +39,11 @@ class ThreadstateServiceProvider extends ServiceProvider
 
         $this->publishesMigrations([
             $this->packageMigrationPath() => database_path('migrations'),
-        ], 'threadstate-migrations');
+        ], 'state-machine-migrations');
 
         $this->publishes([
-            dirname(__DIR__, 2).'/config/threadstate.php' => config_path('threadstate.php'),
-        ], 'threadstate-config');
+            dirname(__DIR__, 2).'/config/state_machine.php' => config_path('state_machine.php'),
+        ], 'state-machine-config');
     }
 
     protected function registerEventListeners(): void
@@ -59,10 +59,10 @@ class ThreadstateServiceProvider extends ServiceProvider
 
     protected function registerRoutes(): void
     {
-        if (! config('threadstate.routes.enabled', true)) {
+        if (! config('state_machine.routes.enabled', true)) {
             return;
         }
 
-        $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/threadstate.php');
+        $this->loadRoutesFrom(dirname(__DIR__, 2).'/routes/state_machine.php');
     }
 }

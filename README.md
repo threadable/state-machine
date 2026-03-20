@@ -47,14 +47,14 @@ php artisan state-machine:install --publish-only
 Or use standard Laravel publishing:
 
 ```bash
-php artisan vendor:publish --tag=threadstate-migrations
+php artisan vendor:publish --tag=state-machine-migrations
 php artisan migrate
 ```
 
 Publish the package configuration if you need to change namespace or repository resolution conventions:
 
 ```bash
-php artisan vendor:publish --tag=threadstate-config
+php artisan vendor:publish --tag=state-machine-config
 ```
 
 The published config controls:
@@ -462,10 +462,10 @@ Then the package resolves config in this order:
 You can manage overrides through the package routes:
 
 ```bash
-GET    /threadstate/{stateableClass}/transitions/{transitionId}/overrides
-POST   /threadstate/{stateableClass}/transitions/{transitionId}/overrides/{scopeType}/{scopeId}
-DELETE /threadstate/{stateableClass}/transitions/{transitionId}/overrides/{scopeType}/{scopeId}
-GET    /threadstate/{stateableClass}/{uuid}/transitions/{transitionId}/config
+GET    /state-machine/{stateableClass}/transitions/{transitionId}/overrides
+POST   /state-machine/{stateableClass}/transitions/{transitionId}/overrides/{scopeType}/{scopeId}
+DELETE /state-machine/{stateableClass}/transitions/{transitionId}/overrides/{scopeType}/{scopeId}
+GET    /state-machine/{stateableClass}/{uuid}/transitions/{transitionId}/config
 ```
 
 Override payloads use the same shape as transition configuration records:
@@ -490,15 +490,15 @@ Override payloads use the same shape as transition configuration records:
 Example:
 
 - create an organization override for transition `15`
-  - `POST /threadstate/Order/transitions/15/overrides/organization/42`
+- `POST /state-machine/Order/transitions/15/overrides/organization/42`
 - create a one-off order override
-  - `POST /threadstate/Order/transitions/15/overrides/order/100123`
+- `POST /state-machine/Order/transitions/15/overrides/order/100123`
 - inspect the effective transition config for order `100123`
-  - `GET /threadstate/Order/100123/transitions/15/config`
+- `GET /state-machine/Order/100123/transitions/15/config`
 
 ## Authorization
 
-Package routes support optional authorization callbacks through `config/threadstate.php`.
+Package routes support optional authorization callbacks through `config/state_machine.php`.
 
 Available callbacks:
 
@@ -519,7 +519,7 @@ Example:
 ```php
 'authorization' => [
     'manage_overrides' => static function ($user, $request, array $context): bool {
-        return $user !== null && $user->can('manage-threadstate-overrides');
+        return $user !== null && $user->can('manage-state-machine-overrides');
     },
 ],
 ```
@@ -544,15 +544,15 @@ composer format
 
 ## Contributing
 
-See [CONTRIBUTING.md](/Users/padraig/Projects/threadable/threadstate/CONTRIBUTING.md) for contribution expectations, local checks, and the pull request checklist.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution expectations, local checks, and the pull request checklist.
 
 ## Changelog
 
-See [CHANGELOG.md](/Users/padraig/Projects/threadable/threadstate/CHANGELOG.md) for release history.
+See [CHANGELOG.md](CHANGELOG.md) for release history.
 
 ## License
 
-This package is open-sourced software licensed under the [MIT license](/Users/padraig/Projects/threadable/threadstate/LICENSE).
+This package is open-sourced software licensed under the [MIT license](LICENSE).
 
 ## Current Constraints
 
@@ -560,4 +560,4 @@ The package bootstrapping, migrations, commands, and internal models are package
 
 - `StateMachineRunnerController` is a generic controller wrapper, not a published route package
 
-Application-facing conventions are configurable through `config/threadstate.php`, including model, repository, action, and condition namespaces.
+Application-facing conventions are configurable through `config/state_machine.php`, including model, repository, action, and condition namespaces.

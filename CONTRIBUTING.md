@@ -51,5 +51,5 @@ AI-assisted changes are acceptable only when they are thoroughly reviewed, under
 
 ## Releases
 
-- Document user-facing changes in [CHANGELOG.md](/Users/padraig/Projects/threadable/threadstate/CHANGELOG.md).
+- Document user-facing changes in [CHANGELOG.md](CHANGELOG.md).
 - Keep release notes focused on public behavior, package requirements, and upgrade concerns.

@@ -47,8 +47,8 @@ class TransitionConfigValidatorTest extends TestCase
 
     public function test_it_uses_configured_action_and_condition_namespaces(): void
     {
-        config()->set('threadstate.namespaces.conditions', 'Domain\\Workflow\\Conditions\\');
-        config()->set('threadstate.namespaces.actions', 'Domain\\Workflow\\Actions\\');
+        config()->set('state_machine.namespaces.conditions', 'Domain\\Workflow\\Conditions\\');
+        config()->set('state_machine.namespaces.actions', 'Domain\\Workflow\\Actions\\');
 
         $result = (new TransitionConfigValidator)->validate([
             'trigger' => TsmTransitionConfig::TRIGGER_COMMAND,

@@ -8,14 +8,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Threadable\StateMachine\Providers\ThreadstateServiceProvider;
+use Threadable\StateMachine\Providers\StateMachineServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
     protected function getPackageProviders($app): array
     {
         return [
-            ThreadstateServiceProvider::class,
+            StateMachineServiceProvider::class,
         ];
     }
 

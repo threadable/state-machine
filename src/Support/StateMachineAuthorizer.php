@@ -7,7 +7,7 @@ namespace Threadable\StateMachine\Support;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
-class ThreadstateAuthorizer
+class StateMachineAuthorizer
 {
     /**
      * @param  array<string, mixed>  $context
@@ -16,7 +16,7 @@ class ThreadstateAuthorizer
      */
     public function authorize(Request $request, string $ability, array $context = []): void
     {
-        $callback = config("threadstate.authorization.{$ability}");
+        $callback = config("state_machine.authorization.{$ability}");
 
         if (! is_callable($callback)) {
             return;

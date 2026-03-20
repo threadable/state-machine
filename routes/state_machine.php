@@ -5,25 +5,25 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Threadable\StateMachine\Components\StateMachineRunnerController;
 
-Route::prefix((string) config('threadstate.routes.prefix', 'threadstate'))
-    ->middleware((array) config('threadstate.routes.middleware', ['api']))
+Route::prefix((string) config('state_machine.routes.prefix', 'state-machine'))
+    ->middleware((array) config('state_machine.routes.middleware', ['api']))
     ->group(function (): void {
         Route::get('{stateableClass}', [StateMachineRunnerController::class, 'index'])
-            ->name('threadstate.index');
+            ->name('state-machine.index');
         Route::get('{stateableClass}/states', [StateMachineRunnerController::class, 'statesList'])
-            ->name('threadstate.states');
+            ->name('state-machine.states');
         Route::get('{stateableClass}/{uuid}/transitions', [StateMachineRunnerController::class, 'availableTransitionsForObject'])
-            ->name('threadstate.transitions.available');
+            ->name('state-machine.transitions.available');
         Route::post('{stateableClass}/{uuid}/transitions/{transitionIdentifier}', [StateMachineRunnerController::class, 'transit'])
-            ->name('threadstate.transitions.transit');
+            ->name('state-machine.transitions.transit');
         Route::get('{stateableClass}/{uuid}/transitions/{transitionId}/config', [StateMachineRunnerController::class, 'getEffectiveTransitionConfig'])
-            ->name('threadstate.transitions.config');
+            ->name('state-machine.transitions.config');
         Route::get('{stateableClass}/{uuid}/logs', [StateMachineRunnerController::class, 'getLogs'])
-            ->name('threadstate.logs');
+            ->name('state-machine.logs');
         Route::get('{stateableClass}/transitions/{transitionId}/overrides', [StateMachineRunnerController::class, 'listTransitionOverrides'])
-            ->name('threadstate.transitions.overrides.index');
+            ->name('state-machine.transitions.overrides.index');
         Route::post('{stateableClass}/transitions/{transitionId}/overrides/{scopeType}/{scopeId}', [StateMachineRunnerController::class, 'saveTransitionOverride'])
-            ->name('threadstate.transitions.overrides.store');
+            ->name('state-machine.transitions.overrides.store');
         Route::delete('{stateableClass}/transitions/{transitionId}/overrides/{scopeType}/{scopeId}', [StateMachineRunnerController::class, 'deleteTransitionOverride'])
-            ->name('threadstate.transitions.overrides.delete');
+            ->name('state-machine.transitions.overrides.delete');
     });

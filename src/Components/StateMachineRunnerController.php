@@ -7,7 +7,7 @@ namespace Threadable\StateMachine\Components;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Threadable\StateMachine\Support\ThreadstateAuthorizer;
+use Threadable\StateMachine\Support\StateMachineAuthorizer;
 use Throwable;
 
 /**
@@ -17,12 +17,12 @@ class StateMachineRunnerController extends Controller
 {
     protected StateMachineRunnerService $service;
 
-    protected ThreadstateAuthorizer $authorizer;
+    protected StateMachineAuthorizer $authorizer;
 
     /**
      * StateMachineRunnerController constructor.
      */
-    public function __construct(StateMachineRunnerService $service, ThreadstateAuthorizer $authorizer)
+    public function __construct(StateMachineRunnerService $service, StateMachineAuthorizer $authorizer)
     {
         $this->service = $service;
         $this->authorizer = $authorizer;

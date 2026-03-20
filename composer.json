@@ -59,7 +59,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Threadable\\StateMachine\\Providers\\ThreadstateServiceProvider"
+        "Threadable\\StateMachine\\Providers\\StateMachineServiceProvider"
       ]
     }
   }
