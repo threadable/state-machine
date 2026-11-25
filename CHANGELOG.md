@@ -4,6 +4,8 @@ All notable changes to `threadable/state-machine` will be documented in this fil
 
 The format is based on Keep a Changelog and the project follows Semantic Versioning.
 
-## [Unreleased]
+## [0.1.0] - 2026-11-25
 
-- Initial public package development
+- Initial public release of Threadable State Machine for Laravel.
+
+## [Unreleased]
